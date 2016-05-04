@@ -20173,7 +20173,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _CountDown = __webpack_require__(172);
+	var _CountDown = __webpack_require__(171);
 	
 	var _CountDown2 = _interopRequireDefault(_CountDown);
 	
@@ -20213,7 +20213,7 @@
 	        _react2.default.createElement('hr', null),
 	        _react2.default.createElement(
 	          _CountDown2.default,
-	          { expireTime: new Date("2016/5/4 19:25:40"), overText: '活动已结束', onEnd: this.handleCountDownEnd },
+	          { expireTime: new Date("2017/5/4 19:25:40"), overText: '活动已结束', onEnd: this.handleCountDownEnd },
 	          function (_ref) {
 	            var d = _ref.d;
 	            var h = _ref.h;
@@ -20246,8 +20246,7 @@
 
 /***/ },
 /* 170 */,
-/* 171 */,
-/* 172 */
+/* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20262,7 +20261,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _utilLeftpad = __webpack_require__(173);
+	var _utilLeftpad = __webpack_require__(172);
 	
 	var _utilLeftpad2 = _interopRequireDefault(_utilLeftpad);
 	
@@ -20388,7 +20387,7 @@
 	exports.default = CountDown;
 
 /***/ },
-/* 173 */
+/* 172 */
 /***/ function(module, exports) {
 
 	'use strict';
