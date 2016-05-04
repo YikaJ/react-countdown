@@ -20213,7 +20213,7 @@
 	        _react2.default.createElement('hr', null),
 	        _react2.default.createElement(
 	          _CountDown2.default,
-	          { expireTime: new Date("2016/6/5"), overText: '活动已结束', onEnd: this.handleCountDownEnd },
+	          { expireTime: new Date("2016/5/4 19:02:40"), overText: '活动已结束', onEnd: this.handleCountDownEnd },
 	          function (_ref) {
 	            var d = _ref.d;
 	            var h = _ref.h;
@@ -20260,6 +20260,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _utilLeftpad = __webpack_require__(171);
+
+	var _utilLeftpad2 = _interopRequireDefault(_utilLeftpad);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20297,23 +20301,12 @@
 	      return parseInt((expireTime - Date.now()) / 1000);
 	    }
 	  }, {
-	    key: 'leftPad',
-	    value: function leftPad(str, len, ch) {
-	      str = String(str);
-	      ch = String(ch);
-
-	      if (str.length >= len) return str;
-	      if (!ch && ch != 0) ch = ' ';
-
-	      return this.leftPad(ch + str, len, ch);
-	    }
-	  }, {
 	    key: 'getFormateTime',
 	    value: function getFormateTime(time) {
-	      var d = this.leftPad(parseInt(time / (24 * 60 * 60)), 2, 0);
-	      var h = this.leftPad(parseInt(time / (60 * 60) % 24), 2, 0);
-	      var m = this.leftPad(parseInt(time / 60 % 60), 2, 0);
-	      var s = this.leftPad(parseInt(time % 60), 2, 0);
+	      var d = (0, _utilLeftpad2.default)(parseInt(time / (24 * 60 * 60)), 2, 0);
+	      var h = (0, _utilLeftpad2.default)(parseInt(time / (60 * 60) % 24), 2, 0);
+	      var m = (0, _utilLeftpad2.default)(parseInt(time / 60 % 60), 2, 0);
+	      var s = (0, _utilLeftpad2.default)(parseInt(time % 60), 2, 0);
 
 	      return { d: d, h: h, m: m, s: s };
 	    }
@@ -20332,12 +20325,29 @@
 	      // when CountDown is end
 	      if (newRestTime <= 0) {
 	        onEnd();
-	        return clearInterval(this.updateTimer);
+	        return clearTimeout(this.updateTimer);
 	      }
 
 	      setTimeout(function () {
 	        return _this2.updateRestTime();
 	      }, 1000);
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      clearTimeout(this.updateTimer);
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      var expireTime = nextProps.expireTime;
+
+	      // if parent component update expireTime, CountDown will change restTime too
+
+	      if (expireTime.getTime() !== this.props.expireTime.getTime()) {
+	        var restTime = this.getNewRestTime(expireTime);
+	        this.setState({ restTime: restTime });
+	      }
 	    }
 	  }, {
 	    key: 'render',
@@ -20374,6 +20384,33 @@
 	};
 
 	exports.default = CountDown;
+
+/***/ },
+/* 171 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = leftPad;
+	/**
+	 * leftpad 用于填充字符串，递归实现
+	 * @param  {String} str [需要填充的字符串]
+	 * @param  {Number} len [填充后的长度]
+	 * @param  {String} ch  [填充字符，默认为空格]
+	 * @return {String}     [填充后的文字]
+	 */
+	function leftPad(str, len, ch) {
+	  str = String(str);
+	  ch = String(ch);
+
+	  if (str.length >= len) return str;
+	  if (!ch && ch != 0) ch = ' ';
+
+	  return leftPad(ch + str, len, ch);
+	}
 
 /***/ }
 /******/ ]);

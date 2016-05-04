@@ -13,7 +13,7 @@ class App extends Component {
       <div>
         <h1>CountDown</h1>
         <hr />
-        <CountDown expireTime={new Date("2016/6/5")} overText="活动已结束" onEnd={this.handleCountDownEnd}>
+        <CountDown expireTime={new Date("2016/5/4 19:02:40")} overText="活动已结束" onEnd={this.handleCountDownEnd}>
           {({d, h, m, s}) => {
             return (<span>还剩{d}天{h}时{m}分{s}秒</span>)
           }}

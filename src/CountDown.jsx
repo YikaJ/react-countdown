@@ -1,4 +1,5 @@
 import React, {PropTypes, Component} from 'react'
+import leftpad from './util-leftpad'
 
 class CountDown extends Component {
 
@@ -21,21 +22,11 @@ class CountDown extends Component {
     return parseInt((expireTime - Date.now())/ 1000)
   }
 
-  leftPad(str, len, ch) {
-    str = String(str)
-    ch = String(ch)
-
-    if(str.length >= len) return str
-    if(!ch && ch != 0) ch = ' '
-
-    return this.leftPad(ch + str, len, ch)
-  }
-
   getFormateTime(time) {
-    const d = this.leftPad(parseInt(time / (24 * 60 * 60)), 2, 0)
-    const h = this.leftPad(parseInt(time / (60 * 60) % 24), 2, 0)
-    const m = this.leftPad(parseInt(time / 60 % 60), 2, 0)
-    const s = this.leftPad(parseInt(time % 60), 2, 0)
+    const d = leftpad(parseInt(time / (24 * 60 * 60)), 2, 0)
+    const h = leftpad(parseInt(time / (60 * 60) % 24), 2, 0)
+    const m = leftpad(parseInt(time / 60 % 60), 2, 0)
+    const s = leftpad(parseInt(time % 60), 2, 0)
 
     return {d,h,m,s}
   }
@@ -48,10 +39,24 @@ class CountDown extends Component {
     // when CountDown is end
     if(newRestTime <= 0) {
       onEnd()
-      return clearInterval(this.updateTimer)
+      return clearTimeout(this.updateTimer)
     }
 
     setTimeout(()=>this.updateRestTime(), 1000)
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.updateTimer)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const {expireTime} = nextProps
+
+    // if parent component update expireTime, CountDown will change restTime too
+    if(expireTime.getTime() !== this.props.expireTime.getTime()) {
+      const restTime = this.getNewRestTime(expireTime)
+      this.setState({restTime})
+    }
   }
 
   render() {
