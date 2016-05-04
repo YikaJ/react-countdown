@@ -4,8 +4,9 @@
 'use strict';
 
 module.exports = {
+    devtool: 'source-map',
     entry: [
-        "./src/entry.js"
+        "./entry.js"
     ],
     output: {
         path: './out',
