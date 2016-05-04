@@ -1,7 +1,6 @@
 import React, {PropType, Component} from 'react'
 
-import CountDown from '../index'
-// import CountDown from '../src/CountDown'
+import CountDown from '../src/CountDown'
 
 class App extends Component {
 
