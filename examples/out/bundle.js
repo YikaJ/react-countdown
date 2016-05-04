@@ -20173,9 +20173,9 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _index = __webpack_require__(171);
+	var _CountDown = __webpack_require__(170);
 	
-	var _index2 = _interopRequireDefault(_index);
+	var _CountDown2 = _interopRequireDefault(_CountDown);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -20184,8 +20184,6 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	// import CountDown from '../src/CountDown'
 	
 	var App = function (_Component) {
 	  _inherits(App, _Component);
@@ -20214,8 +20212,8 @@
 	        ),
 	        _react2.default.createElement('hr', null),
 	        _react2.default.createElement(
-	          _index2.default,
-	          { expireTime: new Date("2017/5/4 19:25:40"), overText: '活动已结束', onEnd: this.handleCountDownEnd },
+	          _CountDown2.default,
+	          { endTime: new Date("2017/5/4 19:25:40"), overText: '活动已结束', onEnd: this.handleCountDownEnd },
 	          function (_ref) {
 	            var d = _ref.d;
 	            var h = _ref.h;
@@ -20247,62 +20245,28 @@
 	exports.default = App;
 
 /***/ },
-/* 170 */,
-/* 171 */
+/* 170 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	module.exports = __webpack_require__(172);
-	exports.default = __webpack_require__(172);
-
-/***/ },
-/* 172 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	
-	var _createClass = function () {
-	  function defineProperties(target, props) {
-	    for (var i = 0; i < props.length; i++) {
-	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	    }
-	  }return function (Constructor, protoProps, staticProps) {
-	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	  };
-	}();
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _react = __webpack_require__(2);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function _classCallCheck(instance, Constructor) {
-	  if (!(instance instanceof Constructor)) {
-	    throw new TypeError("Cannot call a class as a function");
-	  }
-	}
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	function _possibleConstructorReturn(self, call) {
-	  if (!self) {
-	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-	}
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
-	function _inherits(subClass, superClass) {
-	  if (typeof superClass !== "function" && superClass !== null) {
-	    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-	}
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var CountDown = function (_Component) {
 	  _inherits(CountDown, _Component);
@@ -20312,25 +20276,26 @@
 	
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(CountDown).call(this, props));
 	
-	    var subTime = _this.getNewRestTime(props.expireTime);
-	    var restTime = subTime < 0 ? 0 : subTime;
-	
 	    _this.state = {
-	      restTime: restTime
+	      restTime: _this.getRestTime(props.endTime)
 	    };
 	
+	    // timeout timer
 	    _this.updateTimer = setTimeout(function () {
 	      return _this.updateRestTime();
 	    }, 1000);
 	
+	    // function binding
 	    _this.updateRestTime.bind(_this);
 	    return _this;
 	  }
 	
 	  _createClass(CountDown, [{
-	    key: 'getNewRestTime',
-	    value: function getNewRestTime(expireTime) {
-	      return parseInt((expireTime - Date.now()) / 1000);
+	    key: 'getRestTime',
+	    value: function getRestTime(endTime) {
+	      var restTime = parseInt((endTime - Date.now()) / 1000);
+	
+	      return restTime < 0 ? 0 : restTime;
 	    }
 	  }, {
 	    key: 'getFormateTime',
@@ -20348,10 +20313,10 @@
 	      var _this2 = this;
 	
 	      var _props = this.props;
-	      var expireTime = _props.expireTime;
+	      var endTime = _props.endTime;
 	      var onEnd = _props.onEnd;
 	
-	      var newRestTime = this.getNewRestTime(expireTime);
+	      var newRestTime = this.getRestTime(endTime);
 	
 	      this.setState({ restTime: newRestTime });
 	      // when CountDown is end
@@ -20372,12 +20337,12 @@
 	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
-	      var expireTime = nextProps.expireTime;
+	      var endTime = nextProps.endTime;
 	
-	      // if parent component update expireTime, CountDown will change restTime too
+	      // if parent component update endTime, CountDown will change restTime too
 	
-	      if (expireTime.getTime() !== this.props.expireTime.getTime()) {
-	        var restTime = this.getNewRestTime(expireTime);
+	      if (endTime.getTime() !== this.props.endTime.getTime()) {
+	        var restTime = this.getRestTime(endTime);
 	        this.setState({ restTime: restTime });
 	      }
 	    }
@@ -20393,7 +20358,11 @@
 	
 	      var date = !isOver && this.getFormateTime(restTime);
 	
-	      return _react2.default.createElement('h5', null, isOver ? overText : children(date));
+	      return _react2.default.createElement(
+	        'h5',
+	        null,
+	        isOver ? overText : children(date)
+	      );
 	    }
 	  }]);
 	
@@ -20405,11 +20374,13 @@
 	};
 	
 	CountDown.PropTypes = {
-	  expireTime: _react.PropTypes.number.isRequired,
+	  endTime: _react.PropTypes.number.isRequired,
 	  overText: _react.PropTypes.oneOf([_react.PropTypes.string, _react.PropTypes.element]),
 	  children: _react.PropTypes.func.isRequired,
 	  onEnd: _react.PropTypes.func
 	};
+	
+	exports.default = CountDown;
 	
 	/**
 	 * leftpad 用于填充字符串，递归实现
@@ -20418,6 +20389,7 @@
 	 * @param  {String} ch  [填充字符，默认为空格]
 	 * @return {String}     [填充后的文字]
 	 */
+	
 	function leftpad(str, len, ch) {
 	  str = String(str);
 	  ch = String(ch);
@@ -20427,8 +20399,6 @@
 	
 	  return leftpad(ch + str, len, ch);
 	}
-	
-	exports.default = CountDown;
 
 /***/ }
 /******/ ]);

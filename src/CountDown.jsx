@@ -5,20 +5,21 @@ class CountDown extends Component {
   constructor(props) {
     super(props)
 
-    const subTime = this.getNewRestTime(props.expireTime)
-    const restTime = subTime < 0 ? 0 : subTime
-
     this.state = {
-      restTime
+      restTime: this.getRestTime(props.endTime)
     }
 
+    // timeout timer
     this.updateTimer = setTimeout(()=>this.updateRestTime(), 1000)
 
+    // function binding
     this.updateRestTime.bind(this)
   }
 
-  getNewRestTime(expireTime) {
-    return parseInt((expireTime - Date.now())/ 1000)
+  getRestTime(endTime) {
+    const restTime =  parseInt((endTime - Date.now())/ 1000)
+
+    return restTime < 0 ? 0 : restTime
   }
 
   getFormateTime(time) {
@@ -31,8 +32,8 @@ class CountDown extends Component {
   }
 
   updateRestTime() {
-    const {expireTime, onEnd} = this.props
-    const newRestTime = this.getNewRestTime(expireTime)
+    const {endTime, onEnd} = this.props
+    const newRestTime = this.getRestTime(endTime)
 
     this.setState({restTime: newRestTime})
     // when CountDown is end
@@ -49,11 +50,11 @@ class CountDown extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {expireTime} = nextProps
+    const {endTime} = nextProps
 
-    // if parent component update expireTime, CountDown will change restTime too
-    if(expireTime.getTime() !== this.props.expireTime.getTime()) {
-      const restTime = this.getNewRestTime(expireTime)
+    // if parent component update endTime, CountDown will change restTime too
+    if(endTime.getTime() !== this.props.endTime.getTime()) {
+      const restTime = this.getRestTime(endTime)
       this.setState({restTime})
     }
   }
@@ -81,7 +82,7 @@ CountDown.defaultProps = {
 }
 
 CountDown.PropTypes = {
-  expireTime: PropTypes.number.isRequired,
+  endTime: PropTypes.number.isRequired,
   overText: PropTypes.oneOf([PropTypes.string, PropTypes.element]),
   children: PropTypes.func.isRequired,
   onEnd: PropTypes.func

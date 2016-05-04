@@ -13,7 +13,7 @@ $ npm install react-countdown-time --save
 
 ```jsx
 // 部分代码省略
-<CountDown expireTime={new Date("2016/6/5")} overText="活动已结束" onEnd={this.handleCountDownEnd}>
+<CountDown endTime={new Date("2016/6/5")} overText="活动已结束" onEnd={this.handleCountDownEnd}>
   {({d, h, m, s}) => {
     return (<span>还剩{d}天{h}时{m}分{s}秒</span>)
   }}
@@ -26,6 +26,6 @@ $ npm install react-countdown-time --save
 
 |prop|type|description
 |---|---|---|
-|expireTime|Date|截至日期|
+|endTime|Date|结束时间|
 |overText|String|结束时的提示|
 |onEnd|Function|结束后的 Callback Hook|
