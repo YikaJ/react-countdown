@@ -1,6 +1,6 @@
 import React, {PropType, Component} from 'react'
 
-import CountDown from '../lib/CountDown'
+import CountDown from '../src/CountDown'
 
 class App extends Component {
 
