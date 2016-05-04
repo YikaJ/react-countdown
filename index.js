@@ -1,1 +1,2 @@
-module.exports = require('./src')
+module.exports = require('./lib/CountDown')
+exports.default = require('./lib/CountDown')

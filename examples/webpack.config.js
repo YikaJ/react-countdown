@@ -1,8 +1,3 @@
-/**
- * Created by YikaJ on 15/6/16.
- */
-'use strict';
-
 module.exports = {
     devtool: 'source-map',
     entry: [
