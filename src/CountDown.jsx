@@ -1,6 +1,6 @@
 import React, {PropTypes, Component} from 'react'
 
-class CountDown extends Component {
+class Countdown extends Component {
 
   constructor(props) {
     super(props)
@@ -23,10 +23,12 @@ class CountDown extends Component {
   }
 
   getFormateTime(time) {
-    const d = leftpad(parseInt(time / (24 * 60 * 60)), 2, 0)
-    const h = leftpad(parseInt(time / (60 * 60) % 24), 2, 0)
-    const m = leftpad(parseInt(time / 60 % 60), 2, 0)
-    const s = leftpad(parseInt(time % 60), 2, 0)
+    const curryLeftpad = time => leftpad(time, 2, 0)
+
+    const d = curryLeftpad(parseInt(time / (24 * 60 * 60)))
+    const h = curryLeftpad(parseInt(time / (60 * 60) % 24))
+    const m = curryLeftpad(parseInt(time / 60 % 60))
+    const s = curryLeftpad(parseInt(time % 60))
 
     return {d,h,m,s}
   }
@@ -36,7 +38,7 @@ class CountDown extends Component {
     const newRestTime = this.getRestTime(endTime)
 
     this.setState({restTime: newRestTime})
-    // when CountDown is end
+    // when Countdown is end
     if(newRestTime <= 0) {
       onEnd()
       return clearTimeout(this.updateTimer)
@@ -52,7 +54,7 @@ class CountDown extends Component {
   componentWillReceiveProps(nextProps) {
     const {endTime} = nextProps
 
-    // if parent component update endTime, CountDown will change restTime too
+    // if parent component update endTime, Countdown will change restTime too
     if(endTime.getTime() !== this.props.endTime.getTime()) {
       const restTime = this.getRestTime(endTime)
       this.setState({restTime})
@@ -77,18 +79,19 @@ class CountDown extends Component {
   }
 }
 
-CountDown.defaultProps = {
-  overText: '时间已过期'
+Countdown.defaultProps = {
+  overText: 'time out!'
 }
 
-CountDown.PropTypes = {
+Countdown.PropTypes = {
+  children: PropTypes.func.isRequired,
   endTime: PropTypes.number.isRequired,
   overText: PropTypes.oneOf([PropTypes.string, PropTypes.element]),
-  children: PropTypes.func.isRequired,
   onEnd: PropTypes.func
 }
 
-export default CountDown
+module.exports = Countdown
+exports.default = Countdown
 
 /**
  * leftpad 用于填充字符串，递归实现
