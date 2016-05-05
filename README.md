@@ -26,7 +26,7 @@ import Countdown from 'react-countdown-time'
 ##Receive Props
 
 |prop|type|description|isRequired|
-|---|---|---|
-|endTime|Date|结束时间|isRequired|
+|---|---|---|---|
+|endTime|Date|结束时间|true|
 |overText|String|结束时的提示| |
 |onEnd|Function|结束后的 Callback Hook| |
