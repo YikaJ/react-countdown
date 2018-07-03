@@ -44,7 +44,7 @@ class Countdown extends Component {
       return clearTimeout(this.updateTimer)
     }
 
-    setTimeout(()=>this.updateRestTime(), 1000)
+    this.updateTimer = setTimeout(()=>this.updateRestTime(), 1000)
   }
 
   componentWillUnmount() {
